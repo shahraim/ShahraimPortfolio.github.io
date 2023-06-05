@@ -3,11 +3,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
 import calculator from "../../Assets/Projects/calculator.png";
-import CirNav from "../../Assets/Projects/CirNav.png";
+import Signinreact from "../../Assets/Projects/signin-react.PNG";
 import Signin from "../../Assets/Projects/AniSignin.png";
 import Ecommerce from "../../Assets/Projects/Ecommerce.png";
 import Creative from "../../Assets/Projects/Creative.png";
-import netflix from "../../Assets/Projects/netflix.png";
+import Todolist from "../../Assets/Projects/todolist.PNG";
 
 function Projects() {
   return (
@@ -21,12 +21,24 @@ function Projects() {
           Here are a few projects I've worked on recently.
         </p>
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+
+          <Col md={4} className="project-card">
+            <ProjectCard
+              imgPath={Signinreact}
+              isBlog={false}
+              title="Pubg Site"
+              description="I just made my first React app for practice at my institute. It was a great experience to get hands-on with React and to apply my knowledge of web development. The app was built using the latest version of React which was a great way to get up to date with the latest technologies. I learned a lot from the experience and am looking forward to further developing my skills in React. I'm confident that I can continue to create more complex and interesting applications with React."
+              ghLink="https://github.com/shahraim/React-Assignment"
+              demoLink="https://react-assignment-indol.vercel.app/"     // <--------Please include a demo link here 
+            />
+          </Col>
+
           <Col md={4} className="project-card">
             <ProjectCard
               imgPath={Ecommerce}
               isBlog={false}
               title="Fast Food Web"
-              description="I'm building an Fast Food website for my practice, so I can make some awesome e-commerce websites."
+              description="Building an awesome e-commerce website for a fast food business is no small feat. It requires a thorough understanding of the industry, as well as the technical know-how to bring the project to fruition. From the front end design to the backend coding, there are many components that need to be taken into consideration."
               ghLink="https://github.com/shahraim/EcommercePractice.github.io"
               demoLink="https://shahraim.github.io/EcommercePractice.github.io/"
             />
@@ -34,12 +46,12 @@ function Projects() {
 
           <Col md={4} className="project-card">
             <ProjectCard
-              imgPath={netflix}
+              imgPath={Todolist}
               isBlog={false}
-              title="Netflix"
-              description="The project is my last test assignment at my institute and I tried to make a Netflix website as best as I could."
-              ghLink="https://github.com/shahraim/netflix.github.io"
-              demoLink="https://shahraim.github.io/netflix.github.io/"
+              title="Todo List"
+              description="I've created a To-Do List in my Institute Assignment in React. I've set up the main components of the application. I've also written functions to add, delete, and complete tasks. I've tested the application to make sure that it works properly, and I'm now ready to deploy it. I'm confident that the To-Do List that I've created will be a useful tool for my Institute Assignment in React."
+              ghLink="https://github.com/shahraim/todo-list"
+              demoLink="https://todo-list-rust-tau.vercel.app/"
             />
           </Col>
 
@@ -50,7 +62,7 @@ function Projects() {
               title="Animated SignIn"
               description="In this project, I'm making animated sign-in forms to practice CSS and learn more about it"
               ghLink="https://github.com/shahraim/AnimateSignInForm.github.io"
-              demoLink="https://shahraim.github.io/AnimateSignInForm.github.io/"              
+              demoLink="https://shahraim.github.io/AnimateSignInForm.github.io/"
             />
           </Col>
 
@@ -76,16 +88,7 @@ function Projects() {
             />
           </Col>
 
-          <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={CirNav}
-              isBlog={false}
-              title="Circular Navbar"
-              description="Creating a new animation using a circular navigation bar is a good way to learn more about CSS as well as make a new animation."
-              ghLink="https://github.com/shahraim/CircularNavbar.github"
-              demoLink="https://shahraim.github.io/CircularNavbar.github/"     // <--------Please include a demo link here 
-            />
-          </Col>
+
         </Row>
       </Container>
     </Container>

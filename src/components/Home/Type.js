@@ -9,7 +9,7 @@ function Type() {
           "Developer",
           "MERN Stack Developer",
           "&",
-          "Learning Backened Development",
+          "Learning Backend Development",
           "Open Source Contributor",
         ],
         autoStart: true,

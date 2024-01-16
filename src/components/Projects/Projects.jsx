@@ -2,17 +2,38 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
-import calculator from "../../Assets/Projects/calculator.png";
-import Signinreact from "../../Assets/Projects/signin-react.PNG";
-import Signin from "../../Assets/Projects/AniSignin.png";
-import Ecommerce from "../../Assets/Projects/Ecommerce.png";
-import Creative from "../../Assets/Projects/Creative.png";
-import ResponsiveImageSite from "../../Assets/Projects/responsive-img.png";
-import TodoList from "../../Assets/Projects/todolist.PNG";
-import WeatherApp from "../../Assets/Projects/weatherApp.png";
-import NetflixBackened from "../../Assets/Projects/netflixBackened.png";
+// import calculator from "../../Assets/Projects/calculator.png";
+// import Signinreact from "../../Assets/Projects/signin-react.PNG";
+// import Signin from "../../Assets/Projects/AniSignin.png";
+// import Ecommerce from "../../Assets/Projects/Ecommerce.png";
+// import Creative from "../../Assets/Projects/Creative.png";
+// import ResponsiveImageSite from "../../Assets/Projects/responsive-img.png";
+// import TodoList from "../../Assets/Projects/todolist.PNG";
+// import WeatherApp from "../../Assets/Projects/weatherApp.png";
+// import NetflixBackened from "../../Assets/Projects/netflixBackened.png";
+import { useQuery, gql } from "@apollo/client";
+
+const GET_DATA = gql`
+  query {
+    projects {
+      projImg {
+        url
+      }
+      projTitle
+      projDesc {
+        text
+      }
+      githubLink
+      demoLink
+    }
+  }
+`;
 
 function Projects() {
+  const { loading, error, data } = useQuery(GET_DATA);
+  // console.log(data);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
   return (
     <Container fluid className="project-section">
       <Particle />
@@ -24,17 +45,20 @@ function Projects() {
           Here are a few projects I've worked on recently.
         </p>
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={TodoList}
-              isBlog={false}
-              title="Todo-List App Redux"
-              description="This React Redux To-Do List application streamlines task management, offering users the ability to effortlessly add, delete, and update tasks, and categorize them as completed or incompleted. The straightforward and user-friendly interface provides an ideal practice platform for enhancing my React and Redux skills, especially in state management and interactive web applications."
-              ghLink="https://github.com/shahraim/TodoList-ReduxToolkit"
-              demoLink="https://todo-redux-shah.vercel.app/" // <--------Please include a demo link here
-            />
-          </Col>
-          <Col md={4} className="project-card">
+          {data.projects.map((el, ind) => (
+            <Col key={ind} md={4} className="project-card">
+              <ProjectCard
+                imgPath={el.projImg[0].url}
+                isBlog={false}
+                title={el.projTitle}
+                description={el.projDesc.text}
+                ghLink={el.githubLink}
+                demoLink={el.demoLink} // <--------Please include a demo link here
+              />
+            </Col>
+          ))}
+        </Row>
+        {/* <Col md={4} className="project-card">
             <ProjectCard
               imgPath={WeatherApp}
               isBlog={false}
@@ -118,8 +142,7 @@ function Projects() {
               ghLink="https://github.com/shahraim/Studio.github.io"
               demoLink="https://shahraim.github.io/Studio.github.io/" //<--------Please include a demo link here
             />
-          </Col>
-        </Row>
+          </Col> */}
       </Container>
     </Container>
   );

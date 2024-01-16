@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { CgGitFork } from "react-icons/cg";
 // import { ImBlog } from "react-icons/im";
+import { useQuery, gql } from "@apollo/client";
 import {
   AiFillStar,
   AiOutlineHome,
@@ -15,10 +16,24 @@ import {
 } from "react-icons/ai";
 
 import { CgFileDocument } from "react-icons/cg";
-
+const GET_DATA = gql`
+  query {
+    navbars {
+      profileImg {
+        url
+      }
+      githubUrl
+    }
+  }
+`;
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
+
+  const { loading, error, data } = useQuery(GET_DATA);
+  // console.log(data);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   function scrollHandler() {
     if (window.scrollY >= 20) {
@@ -39,7 +54,11 @@ function NavBar() {
     >
       <Container>
         <Navbar.Brand href="/" className="d-flex">
-          <img src={logo} className="img-fluid logo" alt="brand" />
+          <img
+            src={data ? data.navbars[0].profileImg.url : logo}
+            className="img-fluid logo"
+            alt="brand"
+          />
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
@@ -104,7 +123,11 @@ function NavBar() {
 
             <Nav.Item className="fork-btn">
               <Button
-                href="https://github.com/shahraim/ShahraimPortfolio.github.io"
+                href={
+                  data
+                    ? data.navbars[0].githubUrl
+                    : "https://github.com/shahraim"
+                }
                 target="_blank"
                 className="fork-btn-inner"
               >

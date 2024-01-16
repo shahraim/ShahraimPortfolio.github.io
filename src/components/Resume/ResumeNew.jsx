@@ -7,16 +7,33 @@ import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+import { useQuery, gql } from "@apollo/client";
 
-const resumeLink = MyResume;
 // "https://github.com/shahraim/my-PDF/raw/main/MyResume.pdf";
 
-function ResumeNew() {
-  const [width, setWidth] = useState(1200);
+const GET_DATA = gql`
+  query {
+    resumes {
+      resum {
+        url
+      }
+    }
+  }
+`;
 
+function ResumeNew() {
+  // const resumeLink = MyResume;
+  const [width, setWidth] = useState(1200);
   useEffect(() => {
     setWidth(window.innerWidth);
   }, []);
+
+  const { loading, error, data } = useQuery(GET_DATA);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  const resumes = data?.resumes || [];  
+  // console.log(resumes);
+  const resumeLink = data ? resumes[0].resum.url : MyResume;
 
   return (
     <div>
@@ -25,7 +42,7 @@ function ResumeNew() {
         <Row style={{ justifyContent: "center", position: "relative" }}>
           <Button
             variant="primary"
-            href={MyResume}
+            href={data ? resumes[0].resum.url : MyResume}
             target="_blank"
             style={{ maxWidth: "250px" }}
           >
@@ -43,7 +60,7 @@ function ResumeNew() {
         <Row style={{ justifyContent: "center", position: "relative" }}>
           <Button
             variant="primary"
-            href={MyResume}
+            href={data ? resumes[0].resum.url : MyResume}
             target="_blank"
             style={{ maxWidth: "250px" }}
           >

@@ -10,12 +10,25 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate
+  Navigate,
 } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useQuery, gql } from "@apollo/client";
+
+const GET_DATA = gql`
+  query {
+    introduces {
+      mainName
+      experience
+      myImg {
+        url
+      }
+    }
+  }
+`;
 
 function App() {
   const [load, upadateLoad] = useState(true);
@@ -27,6 +40,9 @@ function App() {
 
     return () => clearTimeout(timer);
   }, []);
+  const { loading, error, data } = useQuery(GET_DATA);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Router>
@@ -35,11 +51,11 @@ function App() {
         <Navbar />
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home data={data} />} />
           <Route path="/project" element={<Projects />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<About data={data} />} />
           <Route path="/resume" element={<Resume />} />
-          <Route path="*" element={<Navigate to="/"/>} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Footer />
       </div>

@@ -5,7 +5,7 @@ import Particle from "../Particle";
 import Home2 from "./Home2";
 import Type from "./Type";
 
-function Home() {
+function Home({ data }) {
   return (
     <section>
       <Container fluid className="home-section" id="home">
@@ -22,11 +22,14 @@ function Home() {
 
               <h1 className="heading-name">
                 I'M
-                <strong className="main-name"> Shahraim Khan</strong>
+                <strong className="main-name">
+                  {" "}
+                  {data ? data.introduces[0].mainName : "Shahraim Khan"}
+                </strong>
               </h1>
 
               <div style={{ padding: 50, textAlign: "left" }}>
-                <Type />
+                <Type data={data} />
               </div>
             </Col>
 
@@ -41,7 +44,7 @@ function Home() {
           </Row>
         </Container>
       </Container>
-      <Home2 />
+      <Home2 data={data} />
     </section>
   );
 }

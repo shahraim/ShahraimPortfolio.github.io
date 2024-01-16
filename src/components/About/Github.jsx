@@ -13,7 +13,7 @@ function Github() {
         blockSize={15}
         blockMargin={5}
         color="#c084f5"
-        fontSize={16}
+        fontSize={14}
       />
     </Row>
   );

@@ -2,15 +2,18 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import { ImPointRight } from "react-icons/im";
 
-function AboutCard() {
+function AboutCard({ data }) {
   return (
     <Card className="quote-card-view">
       <Card.Body>
         <blockquote className="blockquote mb-0">
           <p style={{ textAlign: "justify" }}>
-            Hi Everyone, I am <span className="purple">Shahraim Khan </span>
+            Hi Everyone, I am{" "}
+            <span className="purple"> {data.introduces[0].mainName} </span>
             from <span className="purple"> Karachi, Pakistan.</span>
-            <br />After passing intermediate 2021, I became increasingly interested in coding and decided to pursue a career as a software engineer.
+            <br />
+            After passing intermediate 2021, I became increasingly interested in
+            coding and decided to pursue a career as a software engineer.
             <br />
             <br />
             Apart from coding, some other activities that I love to do!
@@ -25,12 +28,17 @@ function AboutCard() {
             <li className="about-activity">
               <ImPointRight /> Travelling
             </li>
+            <li className="about-activity">
+              <ImPointRight /> Coding
+            </li>
           </ul>
 
           <p style={{ color: "rgb(155 126 172)" }}>
             "Strive to build things that make a difference!"{" "}
           </p>
-          <footer className="blockquote-footer">Shahraim</footer>
+          <footer className="blockquote-footer">
+            {data.introduces[0].mainName.split(" ")[0]}
+          </footer>
         </blockquote>
       </Card.Body>
     </Card>
